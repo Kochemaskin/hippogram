@@ -2,11 +2,17 @@ package com.example.hippogram.entity;
 
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
+import org.hibernate.Hibernate;
+
+import java.util.Objects;
 
 @Entity
 @Table(name="users")
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 public class User {
 
     @Id
@@ -20,5 +26,16 @@ public class User {
     private String password;
     private String avatarUrl;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        User user = (User) o;
+        return getId() != null && Objects.equals(getId(), user.getId());
+    }
 
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

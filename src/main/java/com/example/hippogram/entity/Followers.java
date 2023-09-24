@@ -1,11 +1,17 @@
 package com.example.hippogram.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
+import org.hibernate.Hibernate;
+
+import java.util.Objects;
 
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Table(name="followers")
 public class Followers {
 
@@ -19,5 +25,16 @@ public class Followers {
     @ManyToOne
     private User follower;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Followers followers = (Followers) o;
+        return getId() != null && Objects.equals(getId(), followers.getId());
+    }
 
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

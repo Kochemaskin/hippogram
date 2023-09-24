@@ -9,7 +9,6 @@ import com.example.hippogram.exception.UserAlreadyExistsException;
 import com.example.hippogram.exception.UserNotFoundException;
 import com.example.hippogram.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -66,5 +65,4 @@ public class UserService {
 
         return userRepository.save(user);
     }
-
 }
