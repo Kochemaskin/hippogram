@@ -61,7 +61,7 @@ public class UserController {
 
         Optional<User> userOptional = userRepository.findById(userId);
 
-        if (!userOptional.isPresent()) {
+        if (userOptional.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
 
