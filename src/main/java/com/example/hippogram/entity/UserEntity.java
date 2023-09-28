@@ -4,38 +4,47 @@ package com.example.hippogram.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.springframework.data.annotation.Id;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
-@Entity
+@Data
+@Builder(toBuilder = true)
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name="users")
-@Getter
-@Setter
-@ToString
-@RequiredArgsConstructor
-public class User {
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String firstName;
-    private String email;
-    private String lastName;
     private String username;
     private String password;
+    private UserRole role;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private boolean enabled;
     private String avatarUrl;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        User user = (User) o;
+        UserEntity user = (UserEntity) o;
         return getId() != null && Objects.equals(getId(), user.getId());
     }
 
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    @ToString.Include(name = "password")
+    private String maskPassword() {
+        return "********";
     }
 }
