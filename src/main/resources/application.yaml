@@ -1,0 +1,23 @@
+server:
+  port: 8080
+
+spring:
+  r2dbc:
+    url: r2dbc:pool:postgres://localhost:5432/hippogram_db
+    username: postgres
+    password: postgres
+  flyway:
+    url: jdbc:postgresql://localhost:5432/hippogram_db
+    locations: classpath:db/migration
+    user: ${spring.r2dbc.username}
+    password: ${spring.r2dbc.password}
+
+jwt:
+  password:
+    encoder:
+      secret: 1CykHLQy1k6aGxoBACxjSQzvGai9HhYmmZfAkl-nJL443g
+      iteration: 64
+      keylength: 256
+  secret: b5f59337a612a2a7dc07328f3e7d1a04722967c7f06df20a499a7d3f91ff2a7e
+  expiration: 3600
+  issuer: user
